@@ -215,10 +215,16 @@ CMD ["node", "index.js"]
 ➤ Start the application by running node index.js.
 <img width="465" height="285" alt="image" src="https://github.com/user-attachments/assets/dcdcbfad-9925-4318-bc85-e18de367a37b" />
 
+## docker networking
+docker providers several default netowkr options that you can use to link containers
+bridge network - defaut nework mode for containers on same machine containers ona  bridge can communic at with each other using their own ip addresses isolated from host machine netwrok providing extra security 
+host netwrok- host mode a container uses the host machines network directly without any isolation its like if the container is plugged dirtectky into your home network
+useful for aplications that need to crash with the host system 
+NoNe type - this goves a container no network interface like a room woithout windows or doors and is completly isolated
+used whn you want to ensure a container has no netwirk access 
+useful for security scenarios
 
-
-
-
+In DevOps, Docker networking is important because it helps microservices work together. Each part of an app can run in its own container, and Docker makes sure they can talk to each other safely and smoothly. You can choose different network types like bridge, host, or none, depending on what you need. It also works no matter where the containers are running. Plus, Docker networking is easy to scale, so as your app grows, your services can grow too.
 
 
 
