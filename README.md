@@ -145,10 +145,75 @@ Portability	Less portable	Very portable (Docker images)
 Use VMs when you need strong isolation or to run different OS types.
 
 Use containers when you need speed, scalability, and efficiency for modern apps.
+🔹 What is a Dockerfile?
+A Dockerfile is a text file with step-by-step instructions to build a Docker image.
 
+It’s like a recipe for creating a consistent, repeatable containerized environment.
 
+Each instruction in the Dockerfile creates a layer in the image, which helps with caching and optimization.
 
+🔹 Why is it Important?
+Enables repeatable builds for consistent development and deployment.
 
+Acts as the foundation for creating Docker images and running containers.
+
+🔹 Key Dockerfile Instructions
+FROM
+
+Sets the base image (e.g., node:14, python:3.10)
+
+Every image builds on top of another image.
+
+WORKDIR
+
+Sets the working directory inside the container for the following instructions.
+
+Example: WORKDIR /app
+
+COPY
+
+Copies files from your local machine into the container.
+
+Example: COPY package*.json ./
+
+RUN
+
+Executes commands in the container while building the image.
+
+Common for installing dependencies.
+
+Example: RUN npm install
+
+EXPOSE (optional)
+
+Informs Docker that the container will use a specific port (e.g., EXPOSE 3000).
+
+CMD
+
+Sets the default command to run when the container starts.
+
+example  Dockerfile Breakdown (Node.js App)
+FROM node:14
+➤ Use the official Node.js v14 image as the base.
+
+WORKDIR /app
+➤ Set /app as the working directory inside the container.
+
+COPY package*.json ./
+➤ Copy package.json and package-lock.json into the container.
+
+RUN npm install
+➤ Install Node.js dependencies inside the container.
+
+COPY . . (shown as just COPY in the image, but should be this)
+➤ Copy the rest of the application code into the container.
+
+EXPOSE 3000
+➤ Let Docker know the app runs on port 3000.
+
+CMD ["node", "index.js"]
+➤ Start the application by running node index.js.
+<img width="465" height="285" alt="image" src="https://github.com/user-attachments/assets/dcdcbfad-9925-4318-bc85-e18de367a37b" />
 
 
 
