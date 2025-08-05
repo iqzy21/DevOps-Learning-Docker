@@ -250,3 +250,4 @@ A docker registry is a system for storing and sharing docker images its like an 
 **Enhanced Collaboration** - When images are stored in a registry the team has access to the same image making development easier and making work faster
 
 **Ensures Consistency** - By storing you image in a registry it makes sure that same image is being used in development testing and production eliminating it doesnt work on my machine problem
+j
