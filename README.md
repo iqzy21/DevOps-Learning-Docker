@@ -1,501 +1,252 @@
-Docker Notes
+# Docker & Containerization Study Notes
 
-## what are containers?
-containers are lightweght portable portable units for applications 
-and they bond appl;icationbs with all its dependencies so the app runs consistant across diffferent environemnts 
+## What are Containers?
 
-for example if you ahve an app and want to run all parts of that app
-conatiners will include the code, the run time and anything needed this includes dependencies that and application needs to run
+Containers are lightweight portable units for applications and they bond applications with all its dependencies so the app runs consistent across different environments.
 
-because they are isolated it runs the same on any environment and can be ran anywhere 
-wether itsa loptop or an virtual environmewnt the application will run the same in that contaner
+For example if you have an app and want to run all parts of that app containers will include the code, the run time and anything needed this includes dependencies that and application needs to run.
 
-🐳 Docker Architecture – Simplified Notes
-Infrastructure (Bottom Layer)
+Because they are isolated it runs the same on any environment and can be ran anywhere whether its a laptop or an virtual environment the application will run the same in that container.
 
-This is your host machine (e.g., your laptop or server).
+## 🐳 Docker Architecture
 
-Host Operating System
+![Docker Architecture](https://github.com/user-attachments/assets/bb5d1b9d-87a7-49a8-aa30-3c3926dc4dfb)
 
-The OS installed on your machine (e.g., Windows, macOS, or Linux).
+### Architecture Components:
 
-Docker Engine
+**Infrastructure** - represents the physical or virtual hardware where everything runs
 
-A lightweight container runtime that manages and runs containers.
+**Host Operating System** - this is the OS that the infrastructure uses
 
-Sits on top of the host OS.
+**Docker Engine** - makes containerisation possible, it provides the environment to build, run and manage containers without docker your containers wont run
 
-Containers (3 in this case)
+**Docker Containers** - each container holds and application and its dependencies
 
-Each container includes:
+This isolation ensures each app runs consistently on different environments as they wont be able to interact with each other they are like shipping containers. In the diagram there is 3 containers on one engine they all share the same engine but are isolated in each container this makes them lightweight and efficient because they share the engine and os system as the containers sit above them.
 
-The application
+## Benefits of Containers
 
-Its binary (compiled code)
+### Isolation
+Each container is isolated and have their own environment and this helps prevent conflict and ensures that applications run smoothly without interfering with each other.
 
-All required libraries/dependencies
+**Example:**
+If app C ran on python2.7 and app B ran on python 3.8 isolation helps make sures that these 2 applications dont clash because of different versions.
 
-Each container is isolated, but they share the same Docker Engine.
+This is where isolation comes in handy because containers provide a consistent environment for applications to run this ensures an application will behave the same way regardless of where its deployed this eliminates issues such as an application working on a developer computer and for another environment due to missing dependencies or different configurations.
 
-diagram
-<img width="693" height="343" alt="image" src="https://github.com/user-attachments/assets/bb5d1b9d-87a7-49a8-aa30-3c3926dc4dfb" />
+An example of this if a dev has a windows laptop and the app runs fine and then is moved over to a dev with a macOS the app might not work because of the different dependencies and environments.
 
-infrastructure - represents the physical or virtual hardware where everything runs
-host operating system - this is the OS that the infrastructure uses 
-docker engine - makes contanerisation possible, it provides the environment to build, run and manage containers
-without docker your containers wont run
-docker containers - each container holds ands application and its dependencies 
+### Efficiency
+Containers are efficient because of how they are ran, they sit on the dockers engine which shares the whole operating system / kernel making them more resource friendly than virtual machines this reduces overhead and allows many containers to run on 1 hardware this makes the containers faster to start up and resource efficient.
 
-this isolation ensures each app runs consistantly on different environments as theywont be able to interact with each other
-they are like shipping containers 
-in the diagram there is 3 containers on one engine they all share the same engine but are isolated in each container
-this makes them lightweight and effeciant because they sharee the engine and os system as  the containers sit above them 
+## What is Docker?
 
-## benefits of containers
+Docker is an open platform used for developing, shipping and running applications in containers and is one of the most popular for it. It simplifies the process of managing containers making it easier to build, deploy and run apps.
 
-isolation - each container is isolated and have their own enivronment and this helps prevent conflict and ensures that applications run smoothly without interfearing with each other
+### Docker Key Components:
 
-example:
-if app C ran on python2.7 and app B ran on python 3.8 isolation helps make sures that these 2 applications dont clash becaiuse of different versions 
+**Docker Engine** - this is the component that runs and manages the containers and is the core of docker its like a car engine its what powers the whole thing the docker engine is responsible for creating and running containers based on the instructions in the docker file and images
 
-this is where isolation comes in handly bacause containers provide a consistant environment for applications to run 
-this ensures an application will behave the same way regardless of where its deployed 
-this eleminates issues such as an application working on a developer computer and for another environment due to missing dpendencies or different configurations 
+**DockerHub** - docker hub is a repo where you can find a share container images its like the app store for docker images you can pull official images, community images and share your own images with others
 
-an example of this if a dev has a windows laptop and the app runs fine and then is moved over to a dev with a macOS the app might not work because of the different dependencies and envronments
-
-containers are efficient because of how they are ran, they sit on the dsockers engine which shares the whole operating system / kernel making them more recourse friendly than virtual machines
-thios reduces overhead and allows many containers to run on 1 hard ware
-this makes the containers faster to start up and resource efficient
-
-## what is docker?
-docker is an open platform used for developing, shipping and running applications in containers and is one of the most popular for it 
-It simplifies the proces of managing containers making it easier to build,deploy and run apps
-
-docker has several key components:
-Docker engine - this is the component that runs and manages the containers and is the core of docker its like a car engine its what powers the whole thing
-the docker engineine is responsible for creating and running containerzs based ont he instructions in the docker file and images
-
-dockerhub- docker hub is a repo where you can find a share container images its like the app store for docker images  you can pull official images,community images and share your own ikmages with others
-docker compose - a tool for defining and running multi container docker applications 
+**Docker Compose** - a tool for defining and running multi container docker applications
 
 ## Images and Containers
-what are images?
-images are templates for creating containers and image is like a snap shot of an application at a certain point of time 
-they are immutable meaning they dont change once they have been created to change them you have to create the image again 
-immutability ensures apps run consistantky no matter where its deployed
 
-what are containers?
-containers are running instance of images so the images are the snapshots of an app containers are what run these images
-containers are what you interact with they can start stop or be edited 
+### What are Images?
+Images are templates for creating containers and image is like a snap shot of an application at a certain point of time they are immutable meaning they dont change once they have been created to change them you have to create the image again immutability ensures apps run consistently no matter where its deployed.
 
-how are images created?
-theres a thing called docker file and its used to build docker images, it containes a series of instructions that are used to build a docker image 
+### What are Containers?
+Containers are running instance of images so the images are the snapshots of an app containers are what run these images containers are what you interact with they can start stop or be edited.
 
-<img width="1104" height="710" alt="image" src="https://github.com/user-attachments/assets/5060ef9a-bb09-427d-9fec-41d0f3f534eb" />
+### How are Images Created?
+Theres a thing called docker file and its used to build docker images, it contains a series of instructions that are used to build a docker image.
+
+![Docker Image Creation](https://github.com/user-attachments/assets/5060ef9a-bb09-427d-9fec-41d0f3f534eb)
 
 ## Importance in Modern Development
-docker simplified deployment by eliminating the trouble of running applications accross different environments and has allowed these applications to run consitantky within its container 
-docker improved effeciency becasue virtual machines are resouce heavy and slowm to start up however docker is lightweight as it shares the systems kernal whicha llows them to start up quicker and use less resource 
-developers can start up containers quickly and companies prefer this because oif the efficiendy
-docker bettered collaberation because it made it easy tio share environmentrs and apllications with team members 
-instead of setting up a complex environment one ach machine you can just share a docker file and this makes sure everything is consistent and the same on everyone machine 
-makes it easy for new developers to onboard as it saves time of settin  g up environments and docker intergrates with cicd automation well 
 
-## FAMOUS Interview Question: VMs vs. Containers
-🐳 Containers vs Virtual Machines – Summary
-🔹 Virtual Machines (VMs):
+**Simplified Deployment** - Docker simplified deployment by eliminating the trouble of running applications across different environments and has allowed these applications to run consistently within its container.
 
-Run a full guest operating system on top of a hypervisor.
+**Improved Efficiency** - Docker improved efficiency because virtual machines are resource heavy and slow to start up however docker is lightweight as it shares the systems kernel which allows them to start up quicker and use less resource developers can start up containers quickly and companies prefer this because if the efficiency.
 
-Each VM is isolated and includes its own OS, binaries, and libraries.
+**Better Collaboration** - Docker bettered collaboration because it made it easy to share environments and applications with team members instead of setting up a complex environment on each machine you can just share a docker file and this makes sure everything is consistent and the same on everyone machine makes it easy for new developers to onboard as it saves time of setting up environments and docker integrates with cicd automation well.
 
-Resource-heavy – uses more CPU, memory, and storage.
+## 🔥 FAMOUS Interview Question: VMs vs. Containers
 
-Slow startup – takes minutes to boot.
+### 🔹 Virtual Machines (VMs):
+- Run a full guest operating system on top of a hypervisor
+- Each VM is isolated and includes its own OS, binaries, and libraries
+- Resource-heavy – uses more CPU, memory, and storage
+- Slow startup – takes minutes to boot
+- Strong isolation, ideal for running different OS types or when full OS-level separation is needed
+- Less portable, often tied to specific hypervisors
 
-Strong isolation, ideal for running different OS types or when full OS-level separation is needed.
+### 🔹 Containers:
+- Run on the Docker engine which sits on top of the host OS
+- Share the host OS kernel, no need for a guest OS
+- Lightweight and efficient, containing only the app and its dependencies
+- Fast startup – takes seconds
+- Process-level isolation – sufficient for most use cases
+- Highly portable, thanks to Docker images, ideal for cloud-native development
 
-Less portable, often tied to specific hypervisors.
+![VMs vs Containers](https://github.com/user-attachments/assets/f76f11fb-d017-4957-9b54-412aca30f36e)
 
-🔹 Containers:
+### 🔑 Key Differences:
 
-Run on the Docker engine which sits on top of the host OS.
+| Feature | Virtual Machines | Containers |
+|---------|------------------|------------|
+| Startup Time | Minutes | Seconds |
+| Resource Usage | High (full OS per VM) | Low (share host OS) |
+| Isolation | Strong (full OS isolation) | Process-level (shares host kernel) |
+| Portability | Less portable | Very portable (Docker images) |
 
-Share the host OS kernel, no need for a guest OS.
+![Comparison Diagram](https://github.com/user-attachments/assets/9ac27621-8492-4e7f-b7f7-ac8b3951e26e)
 
-Lightweight and efficient, containing only the app and its dependencies.
+### 💡 Why It Matters:
+- **Use VMs** when you need strong isolation or to run different OS types
+- **Use containers** when you need speed, scalability, and efficiency for modern apps
 
-Fast startup – takes seconds.
+## Dockerfile
 
-Process-level isolation – sufficient for most use cases.
+### 🔹 What is a Dockerfile?
+A Dockerfile is a text file with step-by-step instructions to build a Docker image. It's like a recipe for creating a consistent, repeatable containerized environment. Each instruction in the Dockerfile creates a layer in the image, which helps with caching and optimization.
 
-Highly portable, thanks to Docker images, ideal for cloud-native development.
-<img width="747" height="363" alt="image" src="https://github.com/user-attachments/assets/f76f11fb-d017-4957-9b54-412aca30f36e" />
+### 🔹 Why is it Important?
+- Enables repeatable builds for consistent development and deployment
+- Acts as the foundation for creating Docker images and running containers
 
-🔑 Key Differences:
-Feature	Virtual Machines	Containers
-Startup Time	Minutes	Seconds
-Resource Usage	High (full OS per VM)	Low (share host OS)
-Isolation	Strong (full OS isolation)	Process-level (shares host kernel)
-Portability	Less portable	Very portable (Docker images)
-<img width="776" height="419" alt="image" src="https://github.com/user-attachments/assets/9ac27621-8492-4e7f-b7f7-ac8b3951e26e" />
+### 🔹 Key Dockerfile Instructions
 
-💡 Why It Matters:
-Use VMs when you need strong isolation or to run different OS types.
+**FROM** - Sets the base image (e.g., node:14, python:3.10) Every image builds on top of another image.
 
-Use containers when you need speed, scalability, and efficiency for modern apps.
-🔹 What is a Dockerfile?
-A Dockerfile is a text file with step-by-step instructions to build a Docker image.
+**WORKDIR** - Sets the working directory inside the container for the following instructions. Example: `WORKDIR /app`
 
-It’s like a recipe for creating a consistent, repeatable containerized environment.
+**COPY** - Copies files from your local machine into the container. Example: `COPY package*.json ./`
 
-Each instruction in the Dockerfile creates a layer in the image, which helps with caching and optimization.
+**RUN** - Executes commands in the container while building the image. Common for installing dependencies. Example: `RUN npm install`
 
-🔹 Why is it Important?
-Enables repeatable builds for consistent development and deployment.
+**EXPOSE** (optional) - Informs Docker that the container will use a specific port (e.g., `EXPOSE 3000`).
 
-Acts as the foundation for creating Docker images and running containers.
+**CMD** - Sets the default command to run when the container starts.
 
-🔹 Key Dockerfile Instructions
-FROM
+### Example Dockerfile Breakdown (Node.js App)
 
-Sets the base image (e.g., node:14, python:3.10)
-
-Every image builds on top of another image.
-
-WORKDIR
-
-Sets the working directory inside the container for the following instructions.
-
-Example: WORKDIR /app
-
-COPY
-
-Copies files from your local machine into the container.
-
-Example: COPY package*.json ./
-
-RUN
-
-Executes commands in the container while building the image.
-
-Common for installing dependencies.
-
-Example: RUN npm install
-
-EXPOSE (optional)
-
-Informs Docker that the container will use a specific port (e.g., EXPOSE 3000).
-
-CMD
-
-Sets the default command to run when the container starts.
-
-example  Dockerfile Breakdown (Node.js App)
+```dockerfile
 FROM node:14
-➤ Use the official Node.js v14 image as the base.
+# Use the official Node.js v14 image as the base.
 
 WORKDIR /app
-➤ Set /app as the working directory inside the container.
+# Set /app as the working directory inside the container.
 
 COPY package*.json ./
-➤ Copy package.json and package-lock.json into the container.
+# Copy package.json and package-lock.json into the container.
 
 RUN npm install
-➤ Install Node.js dependencies inside the container.
+# Install Node.js dependencies inside the container.
 
-COPY . . (shown as just COPY in the image, but should be this)
-➤ Copy the rest of the application code into the container.
+COPY . .
+# Copy the rest of the application code into the container.
 
 EXPOSE 3000
-➤ Let Docker know the app runs on port 3000.
+# Let Docker know the app runs on port 3000.
 
 CMD ["node", "index.js"]
-➤ Start the application by running node index.js.
-<img width="465" height="285" alt="image" src="https://github.com/user-attachments/assets/dcdcbfad-9925-4318-bc85-e18de367a37b" />
+# Start the application by running node index.js.
+```
 
-## docker networking
-docker providers several default netowkr options that you can use to link containers
-bridge network - defaut nework mode for containers on same machine containers ona  bridge can communic at with each other using their own ip addresses isolated from host machine netwrok providing extra security 
-host netwrok- host mode a container uses the host machines network directly without any isolation its like if the container is plugged dirtectky into your home network
-useful for aplications that need to crash with the host system 
-NoNe type - this goves a container no network interface like a room woithout windows or doors and is completly isolated
-used whn you want to ensure a container has no netwirk access 
-useful for security scenarios
+![Dockerfile Example](https://github.com/user-attachments/assets/dcdcbfad-9925-4318-bc85-e18de367a37b)
 
+## Docker Networking
+
+Docker provides several default network options that you can use to link containers:
+
+**Bridge Network** - default network mode for containers on same machine containers on a bridge can communicate with each other using their own ip addresses isolated from host machine network providing extra security.
+
+**Host Network** - host mode a container uses the host machines network directly without any isolation its like if the container is plugged directly into your home network useful for applications that need to crash with the host system.
+
+**None Type** - this gives a container no network interface like a room without windows or doors and is completely isolated used when you want to ensure a container has no network access useful for security scenarios.
+
+### Importance in DevOps
 In DevOps, Docker networking is important because it helps microservices work together. Each part of an app can run in its own container, and Docker makes sure they can talk to each other safely and smoothly. You can choose different network types like bridge, host, or none, depending on what you need. It also works no matter where the containers are running. Plus, Docker networking is easy to scale, so as your app grows, your services can grow too.
 
-## docker compose
-what is docker compise
+## Docker Compose
 
-docker compose helps you manage and run multiple containers together by keeping them in a single yml file
-so instead of manually starting and stopping singular contaimers you and run mulriple 
-imagine if your  app had a data base, webserver etc in different containers docker compose allows you to run them all toigetehr 
-🔑 Key Features of Docker Compose
-📄 docker-compose.yml File
-Defines all the services your application needs.
+### What is Docker Compose?
+Docker compose helps you manage and run multiple containers together by keeping them in a single yml file so instead of manually starting and stopping singular containers you and run multiple imagine if your app had a data base, webserver etc in different containers docker compose allows you to run them all together.
 
-Acts as a blueprint for your environment.
+### 🔑 Key Features of Docker Compose
 
-Specifies:
+#### 📄 `docker-compose.yml` File
+- Defines all the services your application needs
+- Acts as a blueprint for your environment
+- Specifies:
+  - Docker images
+  - Ports to expose
+  - Volumes
+  - Dependencies between containers
+  - Environment variables
 
-Docker images
-
-Ports to expose
-
-Volumes
-
-Dependencies between containers
-
-Environment variables
-
-🧪 Commands
+#### 🧪 Commands
 Manage your entire stack with simple CLI commands:
-
-docker-compose up → Starts all containers.
-
-docker-compose down → Stops and removes containers, networks, and volumes.
-
-docker-compose ps → Lists running services.
-
-docker-compose logs → Shows logs for services.
+- `docker-compose up` → Starts all containers
+- `docker-compose down` → Stops and removes containers, networks, and volumes
+- `docker-compose ps` → Lists running services
+- `docker-compose logs` → Shows logs for services
 
 No need to handle containers individually.
 
-🌐 Networking
-Automatically creates a shared network for your services.
+#### 🌐 Networking
+- Automatically creates a shared network for your services
+- Containers can communicate using service names (e.g., db, web)
+- No need for manual network setup
+- Ensures seamless communication between containers
 
-Containers can communicate using service names (e.g., db, web).
+### 🚀 Why Docker Compose is Important in DevOps
 
-No need for manual network setup.
+#### 🔧 1. Simplifies Development & Testing
+- Quickly spin up full environments with all required services (e.g. MySQL, Nginx, Redis)
+- No need to manually configure each service
+- Speeds up setup → more time writing code, less time managing infrastructure
+- Useful for replicating production environments locally for testing
 
-Ensures seamless communication between containers.
+#### ✅ 2. Ensures Consistency Across Environments
+- Solves the "it works on my machine" problem
+- Everyone uses the same environment setup:
+  - Local development
+  - CI/CD pipelines
+  - Production
+- Defined in a single `docker-compose.yml` file → fewer bugs and environment-related errors
 
+#### 🤝 3. Enhances Teamwork & Collaboration
+- Team members work in identical environments
+- Environment setup can be version controlled alongside code
+- New developers can:
+  - Clone the repo
+  - Run `docker-compose up`
+  - Instantly get the full working environment
+- Makes onboarding faster and documentation simpler
 
-## 🚀 Why Docker Compose is Important in DevOps
-🔧 1. Simplifies Development & Testing
-Quickly spin up full environments with all required services (e.g. MySQL, Nginx, Redis).
-
-No need to manually configure each service.
-
-Speeds up setup → more time writing code, less time managing infrastructure.
-
-Useful for replicating production environments locally for testing.
-
-✅ 2. Ensures Consistency Across Environments
-Solves the "it works on my machine" problem.
-
-Everyone uses the same environment setup:
-
-Local development
-
-CI/CD pipelines
-
-Production
-
-Defined in a single docker-compose.yml file → fewer bugs and environment-related errors.
-
-🤝 3. Enhances Teamwork & Collaboration
-Team members work in identical environments.
-
-Environment setup can be version controlled alongside code.
-
-New developers can:
-
-Clone the repo
-
-Run docker-compose up
-
-Instantly get the full working environment
-
-Makes onboarding faster and documentation simpler.
-
-🧠 Summary
+### 🧠 Summary
 Docker Compose is essential in DevOps because it:
+- ✅ Simplifies environment setup
+- ✅ Ensures consistency across development, testing, and production
+- ✅ Improves collaboration and onboarding
 
-✅ Simplifies environment setup
+## Docker Registries
 
-✅ Ensures consistency across development, testing, and production
+### What is a Docker Registry?
+A docker registry is a system for storing and sharing docker images its like an online library that stores your images for when ever you need them.
 
-✅ Improves collaboration and onboarding
+### Key Features:
+**Public Registries** - like docker hub is open to everyone where you can share your images and use community provided images
 
-## docker registries
-what is a docker registry
-a docker registr is a system for storng and sharing docker images its like an online library that stoires your images for when ever you need them 
-key features:
-public registries - like docker hub is open to everyone where you can share your images and use community provided images
-private regestries - like AWS ECR WHICH ARE SECURE AND ONLU I HAVE access to crutial for dealing with sensitive applications 
+**Private Registries** - like AWS ECR which are secure and only I have access to crucial for dealing with sensitive applications
 
-importance of docker registries in dev ops:
-They stream line the deployment process once they are stores in the registry they can be easily accessed and dopleyed across different environtment and is more reliable to roll out new featyures / updates
-enhances collabersation when images are stored in a regestrary the team has access to the same image making development easier and making work fastere
-ensures consistancy - by storing you image ina  registary it makews sire that sam,e image is being used ionm development testing and production eliminating it doesnt work on my machione problem 
+### Importance of Docker Registries in DevOps:
 
+**Streamlined Deployment** - They streamline the deployment process once they are stored in the registry they can be easily accessed and deployed across different environment and is more reliable to roll out new features / updates
 
+**Enhanced Collaboration** - When images are stored in a registry the team has access to the same image making development easier and making work faster
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+**Ensures Consistency** - By storing you image in a registry it makes sure that same image is being used in development testing and production eliminating it doesnt work on my machine problem
