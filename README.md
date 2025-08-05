@@ -320,7 +320,17 @@ Docker Compose is essential in DevOps because it:
 
 ✅ Improves collaboration and onboarding
 
+## docker registries
+what is a docker registry
+a docker registr is a system for storng and sharing docker images its like an online library that stoires your images for when ever you need them 
+key features:
+public registries - like docker hub is open to everyone where you can share your images and use community provided images
+private regestries - like AWS ECR WHICH ARE SECURE AND ONLU I HAVE access to crutial for dealing with sensitive applications 
 
+importance of docker registries in dev ops:
+They stream line the deployment process once they are stores in the registry they can be easily accessed and dopleyed across different environtment and is more reliable to roll out new featyures / updates
+enhances collabersation when images are stored in a regestrary the team has access to the same image making development easier and making work fastere
+ensures consistancy - by storing you image ina  registary it makews sire that sam,e image is being used ionm development testing and production eliminating it doesnt work on my machione problem 
 
 
 
