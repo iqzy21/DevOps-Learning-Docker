@@ -1,0 +1,14 @@
+version: '3.8' 
+
+services: #where we list parts of the app
+  web:
+    image: my-flask-app:multistage #build webservice from the docker file 
+    ports:
+      - "5002:5002" #ports 
+    depends_on:
+      - mydb #webservice depends on the data base service 
+
+  mydb:
+    image: mysql:5.7 #the data base image
+    environment:
+      MYSQL_ROOT_PASSWORD: mypsw
